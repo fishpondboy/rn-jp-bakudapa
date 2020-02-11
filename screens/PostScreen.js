@@ -35,6 +35,10 @@ export default class PostScreen extends React.Component {
       region: null
     };
 
+    // this._getLocationAsync();
+  }
+
+  componentDidMount() {
     this._getLocationAsync();
   }
 
@@ -54,6 +58,7 @@ export default class PostScreen extends React.Component {
     };
 
     this.setState({ region: region });
+    // console.log(this.state.region.latitude);
     Fire.shared.addLocation(this.state.region);
   };
 
