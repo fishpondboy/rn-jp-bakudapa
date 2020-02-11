@@ -60,6 +60,21 @@ class Fire {
     }
   };
 
+  addLocation = async region => {
+    try {
+      let db = firebase.database().ref('members/', this.uid);
+
+      db.set({
+        email: firebase.auth().currentUser.email,
+        lat: region.latitude,
+        lng: region.longitude,
+        name: firebase.auth().currentUser.displayName
+      });
+    } catch (error) {
+      alert('Error: ', error);
+    }
+  };
+
   signOut = () => {
     firebase.auth().signOut();
   };

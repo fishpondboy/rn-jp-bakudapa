@@ -54,6 +54,7 @@ export default class PostScreen extends React.Component {
     };
 
     this.setState({ region: region });
+    Fire.shared.addLocation(this.state.region);
   };
 
   centerMap() {
