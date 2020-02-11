@@ -11,6 +11,7 @@ import {
 import MapView from 'react-native-maps';
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
+import Fire from '../Fire';
 
 import { DestinationButton } from './components/DestinationButton';
 import { CurrentLocationButton } from './components/CurrentLocationButton';
