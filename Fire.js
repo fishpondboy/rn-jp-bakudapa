@@ -62,7 +62,7 @@ class Fire {
 
   addLocation = async region => {
     try {
-      let db = firebase.database().ref('members/', this.uid);
+      let db = firebase.database().ref('members/' + this.uid);
 
       db.set({
         email: firebase.auth().currentUser.email,

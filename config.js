@@ -1,11 +1,11 @@
 var FirebaseKeys = {
-  apiKey: 'AIzaSyCUo4kP8iN1XLyBDbiGaM2VC23AP0EyBxo',
-  authDomain: 'socialapp-f6527.firebaseapp.com',
-  databaseURL: 'https://socialapp-f6527.firebaseio.com',
-  projectId: 'socialapp-f6527',
-  storageBucket: 'socialapp-f6527.appspot.com',
-  messagingSenderId: '980550910703',
-  appId: '1:980550910703:web:703bef7309f3779c70111a'
+  apiKey: 'AIzaSyAXbFXRlG5Fpeh0F7N_6WrVtmzpx3xdjXQ',
+  authDomain: 'bakudapa-b3c5b.firebaseapp.com',
+  databaseURL: 'https://bakudapa-b3c5b.firebaseio.com',
+  projectId: 'bakudapa-b3c5b',
+  storageBucket: 'bakudapa-b3c5b.appspot.com',
+  messagingSenderId: '810974106183',
+  appId: '1:810974106183:web:cf7e01277bfed2440fd762'
 };
 
 export default FirebaseKeys;
