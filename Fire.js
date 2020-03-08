@@ -39,10 +39,16 @@ class Fire {
         .auth()
         .createUserWithEmailAndPassword(user.email, user.password);
 
-      let db = this.firestore.collection('users').doc(this.uid);
+      // let db = this.firestore.collection('users').doc(this.uid);
+      let db = firebase.database().ref('users/' + this.uid);
 
+      // db.set({
+      //   nama: user.name,
+      //   email: user.email,
+      //   avatar: null
+      // });
       db.set({
-        name: user.name,
+        nama: user.name,
         email: user.email,
         avatar: null
       });
@@ -62,13 +68,11 @@ class Fire {
 
   addLocation = async region => {
     try {
-      let db = firebase.database().ref('members/' + this.uid);
+      let db = firebase.database().ref('users/' + this.uid);
 
-      db.set({
-        email: firebase.auth().currentUser.email,
-        lat: region.latitude,
-        lng: region.longitude,
-        name: firebase.auth().currentUser.displayName
+      db.update({
+        latitude: region.latitude,
+        longitude: region.longitude
       });
     } catch (error) {
       alert('Error: ', error);
@@ -89,6 +93,10 @@ class Fire {
 
   get timestamp() {
     return Date.now();
+  }
+
+  get groupData() {
+    return firebase.database();
   }
 }
 

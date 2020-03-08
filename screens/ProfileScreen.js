@@ -1,28 +1,36 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button, Image } from 'react-native';
 import Fire from '../Fire';
+import * as firebase from 'firebase';
 
 export default class ProfileScreen extends React.Component {
   state = {
     user: {}
   };
 
-  unsubscribe = null;
+  // unsubscribe = null;
 
   componentDidMount() {
-    const user = this.props.uid || Fire.shared.uid;
+    const uid = this.props.uid || Fire.shared.uid;
 
-    this.unsubscribe = Fire.shared.firestore
-      .collection('users')
-      .doc(user)
-      .onSnapshot(doc => {
-        this.setState({ user: doc.data() });
-      });
+    // this.unsubscribe = Fire.shared.firestore
+    //   .collection('users')
+    //   .doc(user)
+    //   .onSnapshot(doc => {
+    //     this.setState({ user: doc.data() });
+    //   });
+
+    var ref = firebase.database().ref('users/' + uid);
+    ref.on('value', snapshot => {
+      const user = snapshot.val();
+
+      this.setState({ user }, () => console.log(this.state.user));
+    });
   }
 
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
+  // componentWillUnmount() {
+  //   this.unsubscribe();
+  // }
 
   render() {
     return (
@@ -38,7 +46,7 @@ export default class ProfileScreen extends React.Component {
               style={styles.avatar}
             />
           </View>
-          <Text style={styles.name}>{this.state.user.name}</Text>
+          <Text style={styles.name}>Hi, {this.state.user.nama}!</Text>
         </View>
         <View style={{ marginTop: 10 }}>
           <Button

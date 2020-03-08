@@ -10,7 +10,7 @@ export const CurrentLocationButton = function(props) {
     ? props.cb
     : () =>
         console.log('Callback function not passed to CurrentLocationButton!');
-  const bottom = props.bottom ? props.bottom : 65;
+  const bottom = props.bottom ? props.bottom : 120;
 
   return (
     <View style={[styles.container, { top: HEIGHT - bottom }]}>

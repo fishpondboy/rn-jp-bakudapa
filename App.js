@@ -7,24 +7,25 @@ import LoadingScreen from './screens/LoadingScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 
+import GroupsScreen from './screens/GroupsScreen';
 import HomeScreen from './screens/HomeScreen';
-import PostScreen from './screens/PostScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import GroupDetailScreen from './screens/GroupDetailScreen';
 
 const AppContainer = createStackNavigator(
   {
     default: createBottomTabNavigator(
       {
-        Home: {
-          screen: HomeScreen,
+        Groups: {
+          screen: GroupsScreen,
           navigationOptions: {
             tabBarIcon: ({ tintColor }) => (
               <Ionicons name='ios-people' size={24} color={tintColor} />
             )
           }
         },
-        Post: {
-          screen: PostScreen,
+        Home: {
+          screen: HomeScreen,
           navigationOptions: {
             tabBarIcon: ({ tintColor }) => (
               <Ionicons
@@ -56,11 +57,11 @@ const AppContainer = createStackNavigator(
           inactiveTintColor: '#B8BBC4',
           showLabel: false
         },
-        initialRouteName: 'Post'
+        initialRouteName: 'Home'
       }
     ),
-    postModal: {
-      screen: PostScreen
+    groupDetail: {
+      screen: GroupDetailScreen
     }
   },
   {
