@@ -12,27 +12,18 @@ import MapView from 'react-native-maps';
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
 import Fire from '../Fire';
+import * as firebase from 'firebase';
 
 import { DestinationButton } from './components/DestinationButton';
 import { CurrentLocationButton } from './components/CurrentLocationButton';
-
-posts = [
-  {
-    id: '1',
-    avatar: require('../assets/tempAvatar.jpg')
-  },
-  {
-    id: '2',
-    avatar: require('../assets/tempAvatar.jpg')
-  }
-];
 
 export default class PostScreen extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      region: null
+      region: null,
+      groupsData: []
     };
 
     // this._getLocationAsync();
@@ -40,6 +31,24 @@ export default class PostScreen extends React.Component {
 
   componentDidMount() {
     this._getLocationAsync();
+    var ref = firebase.database().ref('groups');
+    ref.once('value').then(snapshot => {
+      // console.log(snapshot.val());
+
+      // get children as an array
+      var items = [];
+      snapshot.forEach(child => {
+        items.push({
+          id: child.key,
+          gambar: child.val().gambar,
+          nama: child.val().nama,
+          waktu: child.val().waktu,
+          lokasi: child.val().lokasi
+        });
+      });
+
+      this.setState({ groupsData: items });
+    });
   }
 
   _getLocationAsync = async () => {
@@ -78,10 +87,23 @@ export default class PostScreen extends React.Component {
     });
   }
 
-  renderPost = post => {
+  renderGroups = group => {
     return (
       <View style={styles.feedItem}>
-        <Image source={post.avatar} style={styles.avatar} />
+        <TouchableOpacity
+          onPress={() =>
+            this.props.navigation.navigate('groupDetail', { uid: group.id })
+          }
+        >
+          <Image
+            source={
+              group.gambar
+                ? { uri: group.gambar }
+                : require('../assets/tempAvatar.jpg')
+            }
+            style={styles.avatar}
+          />
+        </TouchableOpacity>
       </View>
     );
   };
@@ -92,7 +114,7 @@ export default class PostScreen extends React.Component {
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Home</Text>
         </View>
-        <View style={{ height: 100, backgroundColor: '#fff', margin: 15 }}>
+        <View style={styles.upper}>
           <View
             style={{
               flex: 1,
@@ -110,8 +132,8 @@ export default class PostScreen extends React.Component {
           <View style={{ flex: 3 }}>
             <FlatList
               style={styles.feed}
-              data={posts}
-              renderItem={({ item }) => this.renderPost(item)}
+              data={this.state.groupsData}
+              renderItem={({ item }) => this.renderGroups(item)}
               keyExtractor={item => item.id}
               horizontal={true}
             />
@@ -168,10 +190,19 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 18,
-    marginRight: 16
+    marginRight: 16,
+    borderColor: '#3E936A',
+    borderWidth: 2
   },
   mapStyle: {
     height: Dimensions.get('window').height,
     marginHorizontal: 18
+  },
+  upper: {
+    height: 100,
+    backgroundColor: '#fff',
+    margin: 15
+    // borderColor: '#3E936A',
+    // borderWidth: 1
   }
 });

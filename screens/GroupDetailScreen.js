@@ -157,6 +157,7 @@ export default class GroupDetailScreen extends React.Component {
             this.map = map;
           }}
         >
+          {/* <MapView.Marker coordinate={this.state.destination} /> */}
           {this.state.membersData.map((coordinate, index) => (
             <MapViewDirections
               key={index}
@@ -189,10 +190,19 @@ export default class GroupDetailScreen extends React.Component {
               title={coordinate.name}
             />
           ))}
+          {/* <MapView.Marker coordinate={this.state.destination} /> */}
         </MapView>
-        <View>
+        <View
+          style={{
+            backgroundColor: 'white',
+            margin: 10,
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+        >
           <Text>
-            {'Meeting will start '}
+            {'Meeting start '}
             <Moment fromNow element={Text} locale='id-ID'>
               {this.state.data.waktu}
             </Moment>
