@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   FlatList,
   Image,
-  Dimensions,
+  Dimensions
 } from 'react-native';
 import MapView from 'react-native-maps';
 import * as Permissions from 'expo-permissions';
@@ -23,7 +23,7 @@ export default class PostScreen extends React.Component {
 
     this.state = {
       region: null,
-      groupsData: [],
+      groupsData: []
     };
 
     // this._getLocationAsync();
@@ -32,18 +32,18 @@ export default class PostScreen extends React.Component {
   componentDidMount() {
     this._getLocationAsync();
     var ref = firebase.database().ref('groups');
-    ref.once('value').then((snapshot) => {
+    ref.once('value').then(snapshot => {
       // console.log(snapshot.val());
 
       // get children as an array
       var items = [];
-      snapshot.forEach((child) => {
+      snapshot.forEach(child => {
         items.push({
           id: child.key,
           gambar: child.val().gambar,
           nama: child.val().nama,
           waktu: child.val().waktu,
-          lokasi: child.val().lokasi,
+          lokasi: child.val().lokasi
         });
       });
 
@@ -57,13 +57,13 @@ export default class PostScreen extends React.Component {
       console.log('Permission to access location was denied.');
 
     let location = await Location.getCurrentPositionAsync({
-      enableHighAccuracy: true,
+      enableHighAccuracy: true
     });
     let region = {
       latitude: location.coords.latitude,
       longitude: location.coords.longitude,
       latitudeDelta: 0.045,
-      longitudeDelta: 0.045,
+      longitudeDelta: 0.045
     };
 
     this.setState({ region: region });
@@ -76,18 +76,18 @@ export default class PostScreen extends React.Component {
       latitude,
       longitude,
       latitudeDelta,
-      longitudeDelta,
+      longitudeDelta
     } = this.state.region;
 
     this.map.animateToRegion({
       latitude,
       longitude,
       latitudeDelta,
-      longitudeDelta,
+      longitudeDelta
     });
   }
 
-  renderGroups = (group) => {
+  renderGroups = group => {
     return (
       <View style={styles.feedItem}>
         <TouchableOpacity
@@ -121,7 +121,7 @@ export default class PostScreen extends React.Component {
               flexDirection: 'row',
               justifyContent: 'space-between',
               alignItems: 'center',
-              paddingHorizontal: 7,
+              paddingHorizontal: 7
             }}
           >
             <Text>Groups</Text>
@@ -134,12 +134,12 @@ export default class PostScreen extends React.Component {
               style={styles.feed}
               data={this.state.groupsData}
               renderItem={({ item }) => this.renderGroups(item)}
-              keyExtractor={(item) => item.id}
+              keyExtractor={item => item.id}
               horizontal={true}
             />
           </View>
         </View>
-        {/* <DestinationButton /> */}
+        <DestinationButton />
         <CurrentLocationButton
           cb={() => {
             this.centerMap();
@@ -151,7 +151,7 @@ export default class PostScreen extends React.Component {
           showsUserLocation={true}
           showsCompass={false}
           rotateEnabled={false}
-          ref={(map) => {
+          ref={map => {
             this.map = map;
           }}
         />
@@ -163,7 +163,7 @@ export default class PostScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ebebeb',
+    backgroundColor: '#ebebeb'
   },
   header: {
     paddingTop: 20,
@@ -172,19 +172,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: '#3E936A',
+    borderBottomColor: '#3E936A'
   },
   headerTitle: {
     fontSize: 20,
-    fontWeight: '500',
+    fontWeight: '500'
   },
   feed: {
-    marginHorizontal: 16,
+    marginHorizontal: 16
   },
   feedItem: {
     borderRadius: 5,
     padding: 8,
-    marginVertical: 8,
+    marginVertical: 8
   },
   avatar: {
     width: 40,
@@ -192,17 +192,17 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     marginRight: 16,
     borderColor: '#3E936A',
-    borderWidth: 2,
+    borderWidth: 2
   },
   mapStyle: {
     height: Dimensions.get('window').height,
-    marginHorizontal: 18,
+    marginHorizontal: 18
   },
   upper: {
     height: 100,
     backgroundColor: '#fff',
-    margin: 15,
+    margin: 15
     // borderColor: '#3E936A',
     // borderWidth: 1
-  },
+  }
 });
