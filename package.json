@@ -15,7 +15,7 @@
     "expo-image-picker": "^8.0.1",
     "expo-location": "~8.0.0",
     "firebase": "^7.9.3",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "moment-timezone": "^0.5.28",
     "native-base": "^2.13.8",
     "react": "~16.9.0",
